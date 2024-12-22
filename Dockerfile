@@ -4,13 +4,16 @@ FROM node:18-alpine
 # Set direktori kerja di dalam container
 WORKDIR /usr/src/app
 
-# Salin file `package.json` dan `package-lock.json`
+# Salin file package.json dan package-lock.json
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install --only=production
+# Install dependencies, termasuk TypeScript
+RUN npm install
 
-# Salin seluruh file ke container
+# Install TypeScript secara global
+RUN npm install -g typescript
+
+# Salin semua file proyek ke dalam container
 COPY . .
 
 # Kompilasi TypeScript
